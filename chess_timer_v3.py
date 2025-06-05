@@ -1,4 +1,5 @@
 import pygame
+import sys
 pygame.init()
 
 from objects import *
@@ -8,8 +9,10 @@ Screen = pygame.display.set_mode(SCREEN_SIZE, pygame.RESIZABLE, 64)
 ClockObj = pygame.time.Clock()
 
 audio_file = pygame.mixer.Sound(click_sound)
+icon_file = pygame.image.load('res/chess_icon.png')
 
 pygame.display.set_caption("Chess Timer")
+pygame.display.set_icon(icon_file)
 
 
 class ScreenChanger(object):
@@ -39,8 +42,9 @@ class ScreenChanger(object):
             self.current_scene()
 
         pygame.quit()
-        quit()
 
+    def splash_scene(self):
+        pass
 
     def set_time_duration_scene(self):
         self.scene_id = "set_time_duration_scene"
@@ -72,7 +76,6 @@ class ScreenChanger(object):
             if secs < 10:
                 secs_txt = "0" + secs_txt
             
-
             drawCentredText(self.screen,str(hrs_txt),[self.width//4,self.height//2],default_font_name,self.height//4,WHITE)
             drawCentredText(self.screen,str(mins_txt),[self.width//2,self.height//2],default_font_name,self.height//4,WHITE)
             drawCentredText(self.screen,str(secs_txt),[self.width*3//4,self.height//2],default_font_name,self.height//4,WHITE)
@@ -187,4 +190,4 @@ class ScreenChanger(object):
             self.clock.tick(self.fps)
 
 
-GameObject = ScreenChanger(Screen, ClockObj, FPS)                                                                              
+sys.exit(ScreenChanger(Screen, ClockObj, FPS))
